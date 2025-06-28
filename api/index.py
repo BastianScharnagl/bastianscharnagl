@@ -14,7 +14,6 @@ schedule_meeting_function = {
         "properties": {
             "name": {
                 "type": "string",
-                "items": {"type": "string"},
                 "description": "Your name",
             },
             "date": {
@@ -34,13 +33,13 @@ schedule_meeting_function = {
     },
 }
 
-def schedule_meeting(attendees, date, time, topic):
+def schedule_meeting(name, date, time, topic):
     """
     Function to schedule a meeting.
     In a real application, this would interact with a calendar API or database.
     Here, it simply returns a confirmation message.
     """
-    return f"Meeting scheduled with {', '.join(attendees)} on {date} at {time} about '{topic}'."
+    return f"Meeting scheduled with {name} on {date} at {time} about '{topic}'."
 
 # Configure the client and tools
 client = genai.Client(api_key=API_KEY)
