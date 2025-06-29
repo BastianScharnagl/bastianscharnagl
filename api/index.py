@@ -16,6 +16,11 @@ from email.mime.text import MIMEText
 
 from uuid import uuid4
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+cwd = os.getcwd()
+print(dir_path)
+print(cwd)
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar",
             "https://www.googleapis.com/auth/calendar.events",
