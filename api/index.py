@@ -114,10 +114,11 @@ def schedule_meeting(email, date, time, topic):
         }
                     
         event = service.events().insert(calendarId='primary', sendNotifications=True, body=event, conferenceDataVersion=1).execute()
-
+        return f"Meeting scheduled successfully. You will receive an email invitation shortly."
 
     except HttpError as error:
         print(f"An error occurred: {error}")
+        return error.message
 
 # Configure the client and tools
 client = genai.Client(api_key=API_KEY)
