@@ -98,7 +98,7 @@ def schedule_meeting(email, date, time, topic):
             }
         },
         "attendees": [
-            {"email": "bastian.scharnagl@gmail.com"}, 
+            {"email": "bastian.scharnagl@hof-university.de"}, 
             {"email": email}
         ],
         "start": {
