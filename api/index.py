@@ -114,7 +114,7 @@ def schedule_meeting(email, date, time, topic):
         }
                     
         event = service.events().insert(calendarId='primary', sendNotifications=True, body=event, conferenceDataVersion=1).execute()
-        return f"Der Termin wurde geplant. Sie erhalten in Kürze eine Einladung per E-Mail."
+        return f"Der Termin am {date} um {time} zum Thema {topic} wurde geplant. Sie erhalten in Kürze eine Einladung per E-Mail an die Adresse {email}."
 
     except HttpError as error:
         print(f"An error occurred: {error}")
