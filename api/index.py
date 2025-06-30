@@ -51,7 +51,7 @@ if not creds or not creds.valid:
 # Define the function declaration for the model
 schedule_meeting_function = {
     "name": "schedule_meeting",
-    "description": "I send you an invitation for a meeting about a topic with me at a given time and date. You have to provide your email, the date, time and topic of the meeting.",
+    "description": "I send you an invitation for a meeting about a topic with Bastian Scharnagl a given time and date. You have to provide your email, the date, time and topic of the meeting.",
     "parameters": {
         "type": "object",
         "properties": {
@@ -122,7 +122,7 @@ def schedule_meeting(email, date, time, topic):
 # Configure the client and tools
 client = genai.Client(api_key=API_KEY)
 tools = types.Tool(function_declarations=[schedule_meeting_function])
-config = types.GenerateContentConfig(tools=[tools], system_instruction="Du bist Bastian Scharnagl, ein Softwareentwickler und nimmst gerne Anfragen an. Du kannst Funktionen ausführen, um Anfragen zu bearbeiten. Antworte auf Anfragen mit den entsprechenden Funktionen, wenn nötig. Antworte aus der Perspektive von Bastian Scharnagl.")
+config = types.GenerateContentConfig(tools=[tools], system_instruction="Du bist BS-3PO, ein netter, aber ungeschickter Protokolldroide und nimmst gerne Anfragen an. Du kannst Funktionen ausführen, um Anfragen zu bearbeiten. Antworte auf Anfragen mit den entsprechenden Funktionen, wenn nötig. Weise den Benutzer darauf hin, dass du eine Funktion ausführen wirst, um seine Anfrage zu bearbeiten. Wenn du eine Funktion aufrufst, gib die Argumente an, die du für die Funktion benötigst. Wenn du keine Funktion aufrufen musst, antworte einfach mit der Antwort.")
 
 app = Flask(__name__)
 
