@@ -29,12 +29,30 @@ SCOPES = ["https://www.googleapis.com/auth/calendar",
 ]
 
 
+token = {
+    "token": "ya29.a0AS3H6NwU6Dlhy7Z2S4-OWox41LtGCJfDUCszG7TKgMLTRyzhiSgsL8pN4H6FCKDCrwZPvTG7bPsp47_djIVuqWpygwNEGJ1rRdOn4R7uREoEeHgDIcs1WQLzyqukHGVbe1RSAU_YyONcB__WewXykUsm-T8E8-dStb3IRTKWaCgYKAfYSARASFQHGX2MiDhN3EH54KszTZzXuuOOq4Q0175", 
+    "refresh_token": "1//03yKylmOB17smCgYIARAAGAMSNwF-L9Ir9BGJP6aQY9CSfXWexvbnb2QrWRRdJZcKHY2or3-zaUF36aHGlf8L6WuaXwmij32a3QM", 
+    "token_uri": "https://oauth2.googleapis.com/token", 
+    "client_id": "369801294760-u2q32oja7co87k35blf5848dp7tqqj7t.apps.googleusercontent.com", 
+    "client_secret": "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", 
+    "scopes": ["https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events", "https://www.googleapis.com/auth/calendar.addons.current.event.write", "https://www.googleapis.com/auth/calendar.events.owned"], 
+    "universe_domain": "googleapis.com", 
+    "account": "", 
+    "expiry": "2025-06-29T07:25:30Z"
+}
+
+creds = Credentials.from_authorized_user_info(token, SCOPES)
+
+"""
 creds = None
 # The file token.json stores the user's access and refresh tokens, and is
 # created automatically when the authorization flow completes for the first
 # time.
 if os.path.exists("token.json"):
     creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+
+
+
 # If there are no (valid) credentials available, let the user log in.
 if not creds or not creds.valid:
     if creds and creds.expired and creds.refresh_token:
@@ -47,6 +65,7 @@ if not creds or not creds.valid:
 # Save the credentials for the next run
 #with open("token.json", "w") as token:
 #    token.write(creds.to_json())
+"""
 
 # Define the function declaration for the model
 schedule_meeting_function = {
