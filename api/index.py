@@ -95,6 +95,7 @@ schedule_meeting_function = {
     },
 }
 
+
 def schedule_meeting(email, date, time, topic):
     """
     Function to schedule a meeting.
@@ -142,20 +143,40 @@ def schedule_meeting(email, date, time, topic):
 # Configure the client and tools
 client = genai.Client(api_key=API_KEY)
 tools = types.Tool(function_declarations=[schedule_meeting_function])
+
+def create_cache(contents):
+    """Create a cache for the given contents."""
+    return client.caches.create(
+        model='gemini-2.5-flash',
+        config=types.CreateCachedContentConfig(
+            contents=contents,
+        ),
+    )
+
+def create_config(contents):
+    """Create a configuration for the model with the given cache."""
+    return types.GenerateContentConfig(
+        tools=[tools],
+        system_instruction="Du bist BS-3PO, ein netter, Protokolldroide und nimmst gerne Anfragen an. Du kannst Termine für Online Meetings mit Bastian Scharnagl planen. Du besitzt den Funktionsaufruf Meeting erstellen. Du denkst selber mit und kannst die Anfragen entsprechend umformulieren und verarbeiten.",
+        cached_content=create_cache(contents).name if contents else None,
+    )
+
 config = types.GenerateContentConfig(tools=[tools], system_instruction="Du bist BS-3PO, ein netter, Protokolldroide und nimmst gerne Anfragen an. Du kannst Termine für Online Meetings mit Bastian Scharnagl planen. Du besitzt den Funktionsaufruf Meeting erstellen. Du denkst selber mit und kannst die Anfragen entsprechend umformulieren und verarbeiten.")
 
 app = Flask(__name__)
 
+prompts = []
 contents = []
 
 def get_completion(prompt):
     # Send request with function declarations
+    prompts.append(prompt)
+
     response = client.models.generate_content(
         model="gemini-2.5-flash",
-        contents=prompt,
+        contents=prompts,
         config=config,
     )
-    
     contents.append(types.Content(
         role="user", parts=[types.Part(text=prompt)]
     ))  # Append user input to contents
@@ -171,38 +192,43 @@ def home():
 def get_bot_response():
     # Check for a function call
     response = get_completion(request.args.get("msg"))
-    if response.candidates[0].content.parts[0].function_call:
-        function_call = response.candidates[0].content.parts[0].function_call
-        print(f"Function to call: {function_call.name}")
-        print(f"Arguments: {function_call.args}")
-        #  In a real app, you would call your function here:
-        #  result = schedule_meeting(**function_call.args)
-        # Create a function response part
-        # Extract tool call details, it may not be in the first part.
-        tool_call = response.candidates[0].content.parts[0].function_call
+    for candidate in response.candidates:
+        for part in candidate.content.parts:
+            if part.function_call:
 
-        if tool_call.name == "schedule_meeting":
-            result = schedule_meeting(**tool_call.args)
-            print(f"Function execution result: {result}")
-            return result
 
-        
-        function_response_part = types.Part.from_function_response(
-            name=tool_call.name,
-            response={"result": result},
-        )
+                #    if response.candidates[0].content.parts[0].function_call:
+                function_call = part.function_call
+                print(f"Function to call: {function_call.name}")
+                print(f"Arguments: {function_call.args}")
+                #  In a real app, you would call your function here:
+                #  result = schedule_meeting(**function_call.args)
+                # Create a function response part
+                # Extract tool call details, it may not be in the first part.
+                tool_call = part.function_call
 
-        # Append function call and result of the function execution to contents
-        contents.append(response.candidates[0].content) # Append the content from the model's response.
-        contents.append(types.Content(role="user", parts=[function_response_part])) # Append the function response
+                if tool_call.name == "schedule_meeting":
+                    result = schedule_meeting(**tool_call.args)
+                    print(f"Function execution result: {result}")
+                    return result
 
-        final_response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            config=config,
-            contents=contents,
-        )
-        print(f"Final response: {final_response}")
-        return final_response.text
+                
+                function_response_part = types.Part.from_function_response(
+                    name=tool_call.name,
+                    response={"result": result},
+                )
+
+                # Append function call and result of the function execution to contents
+                contents.append(response.candidates[0].content) # Append the content from the model's response.
+                contents.append(types.Content(role="user", parts=[function_response_part])) # Append the function response
+
+                final_response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    config=config,
+                    contents=contents,
+                )
+                print(f"Final response: {final_response}")
+                return final_response.text
         
     else:
         print("No function call found in the response.")
