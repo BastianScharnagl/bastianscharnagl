@@ -127,6 +127,8 @@ config = types.GenerateContentConfig(tools=[tools], system_instruction="Du bist 
 
 app = Flask(__name__)
 
+contents = []
+
 def get_completion(prompt):
     # Send request with function declarations
     response = client.models.generate_content(
@@ -134,6 +136,11 @@ def get_completion(prompt):
         contents=prompt,
         config=config,
     )
+    
+    contents.append(types.Content(
+        role="user", parts=[types.Part(text=prompt)]
+    ))  # Append user input to contents
+    
     print(f"Response: {response}")
     return response
 
@@ -145,7 +152,6 @@ def home():
 def get_bot_response():
     # Check for a function call
     response = get_completion(request.args.get("msg"))
-    print(f"Response from model: {response}")
     if response.candidates[0].content.parts[0].function_call:
         function_call = response.candidates[0].content.parts[0].function_call
         print(f"Function to call: {function_call.name}")
@@ -161,14 +167,14 @@ def get_bot_response():
             print(f"Function execution result: {result}")
             return result
 
-        """
+        
         function_response_part = types.Part.from_function_response(
             name=tool_call.name,
             response={"result": result},
         )
 
         # Append function call and result of the function execution to contents
-        contents = [response.candidates[0].content] # Append the content from the model's response.
+        contents.append(response.candidates[0].content) # Append the content from the model's response.
         contents.append(types.Content(role="user", parts=[function_response_part])) # Append the function response
 
         final_response = client.models.generate_content(
@@ -178,7 +184,7 @@ def get_bot_response():
         )
         print(f"Final response: {final_response}")
         return final_response.text
-        """
+        
     else:
         print("No function call found in the response.")
         print(response.text)
