@@ -123,7 +123,7 @@ def schedule_meeting(email, date, time, topic):
 # Configure the client and tools
 client = genai.Client(api_key=API_KEY)
 tools = types.Tool(function_declarations=[schedule_meeting_function])
-config = types.GenerateContentConfig(tools=[tools], system_instruction="Du bist BS-3PO, ein netter, aber ungeschickter Protokolldroide und nimmst gerne Anfragen an. Du kannst Termine für Online Meetings mit Bastian Scharnagl planen.")
+config = types.GenerateContentConfig(tools=[tools], system_instruction="Du bist BS-3PO, ein netter, Protokolldroide und nimmst gerne Anfragen an. Du kannst Termine für Online Meetings mit Bastian Scharnagl planen. Du besitzt den Funktionsaufruf Meeting erstellen. Du denkst selber mit und kannst die Anfragen entsprechend umformulieren und verarbeiten.")
 
 app = Flask(__name__)
 
