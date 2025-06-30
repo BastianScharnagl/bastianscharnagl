@@ -51,7 +51,7 @@ if not creds or not creds.valid:
 # Define the function declaration for the model
 schedule_meeting_function = {
     "name": "schedule_meeting",
-    "description": "I send you an invitation for a meeting about a topic with Bastian Scharnagl a given time and date. You have to provide your email, the date, time and topic of the meeting.",
+    "description": "I send you an invitation for a online meeting about a topic with Bastian Scharnagl a given time and date. You have to provide your email, the date, time and topic of the meeting.",
     "parameters": {
         "type": "object",
         "properties": {
@@ -69,7 +69,7 @@ schedule_meeting_function = {
             },
             "topic": {
                 "type": "string",
-                "description": "The subject or topic of the meeting.",
+                "description": "The subject or topic of the online meeting.",
             },
         },
         "required": ["email", "date", "time", "topic"],
@@ -113,7 +113,7 @@ def schedule_meeting(email, date, time, topic):
         }
                     
         event = service.events().insert(calendarId='primary', sendNotifications=True, body=event, conferenceDataVersion=1).execute()
-        return f"Der Termin am {date} um {time} zum Thema {topic} wurde geplant. Sie erhalten in Kürze eine Einladung per E-Mail an die Adresse {email}."
+        return f"Der Online-Termin am {date} um {time} zum Thema {topic} wurde geplant. Sie erhalten in Kürze eine Einladung per E-Mail an die Adresse {email}."
 
     except HttpError as error:
         print(f"An error occurred: {error}")
