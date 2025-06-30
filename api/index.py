@@ -145,6 +145,7 @@ def home():
 def get_bot_response():
     # Check for a function call
     response = get_completion(request.args.get("msg"))
+    print(f"Response from model: {response}")
     if response.candidates[0].content.parts[0].function_call:
         function_call = response.candidates[0].content.parts[0].function_call
         print(f"Function to call: {function_call.name}")
