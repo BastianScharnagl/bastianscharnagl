@@ -15,8 +15,8 @@ export default function Home() {
       </nav>
       </div>
 
-      <div class='outer-div'>
-        <div class='middle-div'>
+      <div className='outer-div'>
+        <div className='middle-div'>
           <p align="center" className="align-middle text-lg italic">Formale Logik ist unabhängig von Erfahrung</p>
         </div>
       </div>
