@@ -17,7 +17,7 @@ export default function Home() {
 
       <div className='outer-div'>
         <div className='middle-div'>
-          <p align="center" className="align-middle text-lg italic">Formale Logik ist unabhängig von Erfahrung</p>
+          <p className="align-middle text-lg italic">Formale Logik ist unabhängig von Erfahrung</p>
         </div>
       </div>
     </main>
