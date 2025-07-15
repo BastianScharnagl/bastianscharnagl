@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 import os 
 from google import genai
 from google.genai import types
@@ -184,9 +184,9 @@ def get_completion(prompt):
     print(f"Response: {response}")
     return response
 
-@app.route("/")
-def home():
-  return render_template("index.html")
+@app.route("/contact")
+def contact():
+  return render_template("contact.html")
 
 @app.route("/get")
 def get_bot_response():
