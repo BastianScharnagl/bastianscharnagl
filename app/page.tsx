@@ -8,7 +8,7 @@ export default function Home() {
       <div id="menu">
       <nav>
       <ol>
-      <li><a href="/">Wurzel </a></li>
+      <li><a href="/">Wurzeln </a></li>
       <li><a href="https://linkedin.com/in/bastianscharnagl">Lebenslauf </a></li>
       <li><a href="/contact">BS-3PO </a></li>
       </ol>
@@ -17,7 +17,7 @@ export default function Home() {
 
       <div className='outer-div'>
         <div className='middle-div'>
-          <p className="align-middle text-lg italic">Formale Logik ist unabhängig von Erfahrung</p>
+          <p className="align-middle text-lg italic">Erfahrung, unabhängig von formaler Logik</p>
         </div>
       </div>
     </main>
