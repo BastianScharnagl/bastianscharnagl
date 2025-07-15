@@ -3,15 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
   swcMinify: true,
-  webpack: (config) => {
-    config.snapshot = {
-      ...(config.snapshot ?? {}),
-      // Add all node_modules but @next module to managedPaths
-      // Allows for hot refresh of changes to @next module
-      managedPaths: [/^(.+?[\\/]node_modules[\\/])(?!@next)/],
-    };
-    return config;
-  },
+  compress: true,
+  cacheMaxMemorySize: 0,
+  
   rewrites: async () => {
     return [
       {
