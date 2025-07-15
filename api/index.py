@@ -1,25 +1,14 @@
-from flask import Flask, render_template, request, send_from_directory
-import os 
+from flask import Flask, render_template, request
 from google import genai
 from google.genai import types
 
 API_KEY = "AIzaSyDGynJ26T6eFt7HvszpcCpT6hbqxVoFk-8"
 
-from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-import base64
-from email.mime.text import MIMEText
-
 from uuid import uuid4
-
-dir_path = os.path.dirname(os.path.realpath(__file__))
-cwd = os.getcwd()
-print(dir_path)
-print(cwd)
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar",
