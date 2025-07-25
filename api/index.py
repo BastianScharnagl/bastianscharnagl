@@ -10,6 +10,9 @@ from googleapiclient.errors import HttpError
 
 from uuid import uuid4
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar",
             "https://www.googleapis.com/auth/calendar.events",
@@ -153,6 +156,10 @@ def create_config(contents):
 config = types.GenerateContentConfig(tools=[tools], system_instruction="Du bist BS-3PO, ein netter, Protokolldroide und nimmst gerne Anfragen an. Du kannst Termine für Online Meetings mit Bastian Scharnagl planen. Du besitzt den Funktionsaufruf Meeting erstellen. Du denkst selber mit und kannst die Anfragen entsprechend umformulieren und verarbeiten.")
 
 app = Flask(__name__)
+
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+)
 
 prompts = []
 contents = []
