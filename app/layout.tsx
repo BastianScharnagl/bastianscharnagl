@@ -22,8 +22,9 @@ export default function RootLayout({
             <nav>
               <ol>
                 <li><a href="/">Wurzeln </a></li>
-                <li><a href="/world">World </a></li>
-                <li><a href="https://linkedin.com/in/bastianscharnagl">Lebenslauf </a></li>
+                <li><a href="/inspiration">Inspiration </a></li>
+                {/*<li><a href="/world">World </a></li>*/}
+                <li><a href="/lebenslauf">Lebenslauf </a></li>
                 <li><a href="/contact">BS-3PO </a></li>
               </ol>
             </nav>
