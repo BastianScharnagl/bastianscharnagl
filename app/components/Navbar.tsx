@@ -8,7 +8,8 @@ const Navbar = () => {
                 {/* <Link href="/assistant" className="text-sm font-medium hover:text-primary transition-colors underline decoration-primary/50 underline-offset-4">Assistant</Link> */}
                 <Link href="/projects" className="text-sm font-medium hover:text-primary transition-colors">Projects</Link>
                 <Link href="/cycling" className="text-sm font-medium hover:text-primary transition-colors">Cycling</Link>
-                <Link href="/reading" className="text-sm font-medium hover:text-primary transition-colors underline decoration-primary/50 underline-offset-4">Reading</Link>
+                <Link href="/reading" className="text-sm font-medium hover:text-primary transition-colors">Reading</Link>
+                <Link href="/finance" className="text-sm font-medium hover:text-primary transition-colors">Finance</Link>
                 <Link href="/contact" className="text-sm font-medium hover:text-primary transition-colors">Contact</Link>
             </div>
         </nav>
