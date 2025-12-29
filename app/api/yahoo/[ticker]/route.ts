@@ -8,7 +8,6 @@ export async function GET(
     const { ticker } = await context.params;
 
     try {
-        console.log(`[Yahoo API] Fetching data for: ${ticker}`);
         const yahooFinance = new YahooFinance();
 
         // Fetch current fundamentals with specific modules
@@ -21,8 +20,6 @@ export async function GET(
                 'summaryProfile'
             ]
         });
-        console.log(`[Yahoo API] Quote: ${JSON.stringify(quote)}`);
-
 
         // Fetch historical price data (25 years to cover 20y view + buffer)
         // Using '1mo' interval is efficient for long ranges
@@ -30,8 +27,6 @@ export async function GET(
             period1: new Date(new Date().setFullYear(new Date().getFullYear() - 25)).toISOString(),
             interval: '1mo'
         });
-
-        console.log(`[Yahoo API] Price History Length: ${history.quotes.length}`);
 
         return NextResponse.json({
             quote,

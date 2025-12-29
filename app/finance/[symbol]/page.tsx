@@ -29,6 +29,85 @@ interface EdgarData {
     metadata: any;
 }
 
+const MetricTrend = ({ periods, values }: { periods: string[], values: any }) => {
+    // Sort periods chronologically for the graph
+    const sortedPeriods = [...periods].sort((a, b) => {
+        const getYear = (p: string) => {
+            const matches = p.match(/\d{4}/);
+            return matches ? parseInt(matches[0]) : 0;
+        };
+        const getOrder = (p: string) => {
+            if (p.includes('Q1')) return 1;
+            if (p.includes('Q2')) return 2;
+            if (p.includes('Q3')) return 3;
+            if (p.includes('Q4')) return 4;
+            if (p.includes('FY')) return 5;
+            return 0;
+        };
+        const yearA = getYear(a);
+        const yearB = getYear(b);
+        if (yearA !== yearB) return yearA - yearB;
+        return getOrder(a) - getOrder(b);
+    });
+
+    const dataPoints = sortedPeriods.map(p => values[p]?.raw_value).filter(v => v !== undefined && v !== null);
+
+    if (dataPoints.length < 2) return <div className="h-40 flex items-center justify-center text-zinc-400 text-sm">Not enough data points for trend</div>;
+
+    const max = Math.max(...dataPoints);
+    const min = Math.min(...dataPoints);
+    const range = max - min === 0 ? 1 : max - min;
+    const height = 160;
+    const width = 800;
+    const padding = 20;
+
+    const points = dataPoints.map((val, i) => ({
+        x: (i / (dataPoints.length - 1)) * (width - 2 * padding) + padding,
+        y: height - ((val - min) / range) * (height - 2 * padding) - padding
+    }));
+
+    const linePath = `M ${points.map(p => `${p.x},${p.y}`).join(' L ')}`;
+    const areaPath = `${linePath} L ${points[points.length - 1].x},${height} L ${points[0].x},${height} Z`;
+
+    return (
+        <div className="py-8 px-4 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-3xl mt-4">
+            <div className="flex justify-between mb-4 px-2">
+                <span className="text-[10px] font-black uppercase text-zinc-400">Trend Analysis</span>
+                <div className="flex gap-4">
+                    <span className="text-xs font-bold text-green-500">Max: {max.toLocaleString()}</span>
+                    <span className="text-xs font-bold text-red-500">Min: {min.toLocaleString()}</span>
+                </div>
+            </div>
+            <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-40 overflow-visible">
+                <defs>
+                    <linearGradient id="trendGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
+                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                    </linearGradient>
+                </defs>
+                {[0, 0.5, 1].map((p, i) => (
+                    <line key={i} x1={padding} y1={padding + p * (height - 2 * padding)} x2={width - padding} y2={padding + p * (height - 2 * padding)} stroke="currentColor" strokeOpacity="0.05" strokeDasharray="4 4" />
+                ))}
+                <path d={areaPath} fill="url(#trendGradient)" />
+                <path d={linePath} fill="none" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                {points.map((p, i) => (
+                    <g key={i} className="group/point">
+                        <circle cx={p.x} cy={p.y} r="4" fill="white" stroke="#3b82f6" strokeWidth="2" className="transition-all group-hover/point:r-6" />
+                        <text x={p.x} y={p.y - 12} textAnchor="middle" className="text-[10px] font-bold fill-zinc-400 opacity-0 group-hover/point:opacity-100 transition-opacity">
+                            {dataPoints[i].toLocaleString()}
+                        </text>
+                    </g>
+                ))}
+            </svg>
+            <div className="flex justify-between mt-4 px-2">
+                {sortedPeriods.map((p, i) => (
+                    <span key={i} className="text-[9px] font-bold text-zinc-400 uppercase tracking-tighter">{p}</span>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const CompanyDetailPage = () => {
     const { symbol } = useParams();
     const router = useRouter();
@@ -37,26 +116,19 @@ const CompanyDetailPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<'overview' | 'income' | 'balance' | 'cashflow'>('overview');
+    const [expandedConcept, setExpandedConcept] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                // Fetch Yahoo Data
                 const yResponse = await fetch(`/api/yahoo/${symbol}`);
                 const yJson = await yResponse.json();
-
-                // Fetch Edgar Data
                 const eResponse = await fetch(`/api/edgar/${symbol}`);
                 const eJson = await eResponse.json();
-
-                console.log(eJson);
-
                 if (yJson.error) throw new Error(yJson.error);
-
                 setYahooData(yJson);
                 if (!eJson.error) setEdgarData(eJson);
-
             } catch (err: any) {
                 console.error('Fetch error:', err);
                 setError(err.message || 'Failed to fetch company data');
@@ -64,7 +136,6 @@ const CompanyDetailPage = () => {
                 setLoading(false);
             }
         };
-
         if (symbol) fetchData();
     }, [symbol]);
 
@@ -106,7 +177,6 @@ const CompanyDetailPage = () => {
             <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-500/10 to-transparent -z-10" />
 
             <main className="max-w-7xl mx-auto w-full">
-                {/* Header Section */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
                     <div>
                         <div className="flex items-center gap-3 mb-4">
@@ -131,7 +201,6 @@ const CompanyDetailPage = () => {
                     </div>
                 </div>
 
-                {/* Key Metrics Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
                     {[
                         { label: 'Market Cap', value: summary.marketCap?.fmt || formatValue(summary.marketCap) },
@@ -148,7 +217,6 @@ const CompanyDetailPage = () => {
                     ))}
                 </div>
 
-                {/* Navigation Tabs */}
                 <div className="flex gap-2 p-1 bg-zinc-100 dark:bg-zinc-800/50 rounded-2xl w-fit mb-8">
                     {['overview', 'income', 'balance', 'cashflow'].map((tab) => (
                         <button
@@ -164,7 +232,6 @@ const CompanyDetailPage = () => {
                     ))}
                 </div>
 
-                {/* Content Area */}
                 <div className="min-h-[600px]">
                     {activeTab === 'overview' && (
                         <div className="grid lg:grid-cols-3 gap-8">
@@ -176,7 +243,6 @@ const CompanyDetailPage = () => {
                                     </p>
                                 </div>
                             </div>
-
                             <div className="space-y-8">
                                 <div className="glass p-8 rounded-[2rem]">
                                     <h3 className="text-xl font-bold mb-6">Details</h3>
@@ -231,16 +297,29 @@ const CompanyDetailPage = () => {
                                                 activeTab === 'balance' ? edgarData.balance_sheet :
                                                     edgarData.cash_flow
                                         ).map((item: any) => (
-                                            <tr key={item.concept} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/20 transition-colors">
-                                                <td className={`py-4 pr-4 ${item.is_total ? 'font-bold text-zinc-900 dark:text-white' : 'text-zinc-500'}`} style={{ paddingLeft: `${(item.depth || 0) * 1.5}rem` }}>
-                                                    {item.label}
-                                                </td>
-                                                {edgarData.periods.map(period => (
-                                                    <td key={period} className={`py-4 text-right font-medium ${item.is_total ? 'font-black' : ''}`}>
-                                                        {item.values[period]?.display_value || '-'}
+                                            <React.Fragment key={item.concept}>
+                                                <tr
+                                                    onClick={() => setExpandedConcept(expandedConcept === item.concept ? null : item.concept)}
+                                                    className={`hover:bg-zinc-50/50 dark:hover:bg-zinc-800/20 transition-colors cursor-pointer group/row ${expandedConcept === item.concept ? 'bg-zinc-50/80 dark:bg-zinc-800/40' : ''}`}
+                                                >
+                                                    <td className={`py-4 pr-4 flex items-center gap-3 ${item.is_total ? 'font-bold text-zinc-900 dark:text-white' : 'text-zinc-500'}`} style={{ paddingLeft: `${(item.depth || 0) * 1.5 + 1}rem` }}>
+                                                        <svg className={`w-3 h-3 transition-transform text-zinc-300 group-hover/row:text-blue-500 ${expandedConcept === item.concept ? 'rotate-90 text-blue-500' : ''}`} fill="currentColor" viewBox="0 0 20 20"><path d="M6 10a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1z" /><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" /></svg>
+                                                        {item.label}
                                                     </td>
-                                                ))}
-                                            </tr>
+                                                    {edgarData.periods.map(period => (
+                                                        <td key={period} className={`py-4 text-right font-medium ${item.is_total ? 'font-black' : ''}`}>
+                                                            {item.values[period]?.display_value || '-'}
+                                                        </td>
+                                                    ))}
+                                                </tr>
+                                                {expandedConcept === item.concept && (
+                                                    <tr>
+                                                        <td colSpan={edgarData.periods.length + 1} className="py-2 px-8">
+                                                            <MetricTrend periods={edgarData.periods} values={item.values} />
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </React.Fragment>
                                         ))}
                                     </tbody>
                                 </table>
