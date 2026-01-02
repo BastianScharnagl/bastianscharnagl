@@ -43,7 +43,7 @@ export async function GET() {
         };
 
         // 2. Fetch Activities
-        const activitiesResponse = await fetch(`https://www.strava.com/api/v3/athlete/activities?per_page=30`, {
+        const activitiesResponse = await fetch(`https://www.strava.com/api/v3/athlete/activities?per_page=100`, {
             method: "GET",
             headers: activityHeaders,
         });

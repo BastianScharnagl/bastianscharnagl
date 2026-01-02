@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import MetricTrend from '@/app/components/MetricTrend';
 
 interface StravaActivity {
     id: number;
@@ -130,10 +131,7 @@ const CyclingPage = () => {
                     throw new Error(data.error || 'Failed to fetch Strava data');
                 }
                 const data = await response.json();
-                const ridesOnly = (data.activities || [])
-                    .filter((activity: StravaActivity) => activity.type === 'Ride')
-                    .slice(0, 10);
-                setActivities(ridesOnly);
+                setActivities(data.activities || []);
                 setProfile(data.profile || null);
                 setStats(data.stats || null);
             } catch (err) {
@@ -228,11 +226,60 @@ const CyclingPage = () => {
                     ))}
                 </div>
 
+                {/* Performance Graphs */}
+                {!loading && activities.length > 0 && (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                        <div className="glass p-8 rounded-[2.5rem]">
+                            <h3 className="text-xl font-extrabold mb-6 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-xl bg-orange-500/10 text-orange-600 flex items-center justify-center text-sm">km</span>
+                                Monthly Distance
+                            </h3>
+                            {(() => {
+                                const monthlyDist: { [key: string]: number } = {};
+                                activities.forEach(a => {
+                                    const date = new Date(a.start_date);
+                                    const month = date.toLocaleString('default', { month: 'short', year: '2-digit' });
+                                    monthlyDist[month] = (monthlyDist[month] || 0) + (a.distance / 1000);
+                                });
+                                const periods = Object.keys(monthlyDist).reverse();
+                                const values = periods.map(p => monthlyDist[p]);
+                                return <MetricTrend periods={periods} values={values} label="Monthly Distance (km)" color="#FC4C02" />;
+                            })()}
+                        </div>
+
+                        <div className="glass p-8 rounded-[2.5rem]">
+                            <h3 className="text-xl font-extrabold mb-6 flex items-center gap-3">
+                                <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                                Speed Trend
+                            </h3>
+                            {(() => {
+                                const lastRides = activities.filter(a => a.type === 'Ride').slice(0, 15).reverse();
+                                const periods = lastRides.map(a => new Date(a.start_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }));
+                                const values = lastRides.map(a => a.average_speed * 3.6);
+                                return <MetricTrend periods={periods} values={values} label="Avg. Speed (km/h)" color="#10b981" />;
+                            })()}
+                        </div>
+
+                        <div className="glass p-8 rounded-[2.5rem] lg:col-span-2">
+                            <h3 className="text-xl font-extrabold mb-6 flex items-center gap-3">
+                                <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-7h1" /></svg>
+                                Climbing Elevation (Recent Rides)
+                            </h3>
+                            {(() => {
+                                const lastRides = activities.filter(a => a.type === 'Ride').slice(0, 20).reverse();
+                                const periods = lastRides.map(a => new Date(a.start_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }));
+                                const values = lastRides.map(a => a.total_elevation_gain);
+                                return <MetricTrend periods={periods} values={values} label="Elevation Gain (m)" color="#8b5cf6" height={200} />;
+                            })()}
+                        </div>
+                    </div>
+                )}
+
                 <div className="mb-12 flex items-center justify-between">
                     <h2 className="text-2xl font-bold">Recent Activities</h2>
                     <div className="h-[1px] flex-1 bg-border-color mx-8 hidden md:block" />
                     <span className="text-sm font-medium text-zinc-400">
-                        {loading ? 'Loading...' : `Showing last ${activities.length} rides`}
+                        {loading ? 'Loading...' : `Showing last ${activities.slice(0, 10).length} rides`}
                     </span>
                 </div>
 
@@ -250,7 +297,7 @@ const CyclingPage = () => {
                 )}
 
                 <div className="space-y-4">
-                    {!loading && !error && activities.map((activity) => (
+                    {!loading && !error && activities.filter(a => a.type === 'Ride').slice(0, 10).map((activity) => (
                         <div key={activity.id} className="glass group p-6 rounded-[2.5rem] hover:border-orange-500/30 transition-all flex flex-col md:flex-row md:items-center gap-6">
                             <PolylineMap encodedPolyline={activity.map?.summary_polyline} />
 

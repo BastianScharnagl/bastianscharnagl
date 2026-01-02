@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import MetricTrend from '@/app/components/MetricTrend';
 
 interface YahooData {
     quote: {
@@ -167,61 +168,11 @@ const CompanyDetailPage = () => {
         </div>
     );
 
-    /*
-    const quote = yahooData.quote;
-    const price = quote.price || {};
-    const summary = quote.summaryDetail || {};
-    const summaryProfile = quote.summaryProfile || {};
-    */
-
     return (
         <div className="min-h-screen bg-background pt-32 pb-24 px-4 relative">
             <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-500/10 to-transparent -z-10" />
 
             <main className="max-w-7xl mx-auto w-full">
-                {/*
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
-                    <div>
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="px-3 py-1 bg-blue-500/10 text-blue-500 text-xs font-bold rounded-full uppercase tracking-wider">
-                                {price.exchangeName || 'Market'}
-                            </span>
-                            <span className="text-zinc-500 font-medium text-sm">{symbol}</span>
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-black mb-2">{price.longName || symbol}</h1>
-                        <p className="text-zinc-500 text-lg">{summaryProfile.industry} • {summaryProfile.sector}</p>
-                    </div>
-
-                    <div className="text-right">
-                        <div className="text-4xl font-black mb-1">
-                            {price.regularMarketPrice?.fmt || price.regularMarketPrice || 'N/A'}
-                            <span className="text-xl text-zinc-400 ml-2 font-medium">{price.currency}</span>
-                        </div>
-                        <div className={`text-lg font-bold ${(price.regularMarketChange || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                            {(price.regularMarketChange || 0) >= 0 ? '+' : ''}
-                            {price.regularMarketChange?.fmt || '0.00'} ({price.regularMarketChangePercent?.fmt || '0.00%'})
-                        </div>
-                    </div>
-                </div>
-                */}
-
-                {/*
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
-                    {[
-                        { label: 'Market Cap', value: summary.marketCap?.fmt || formatValue(summary.marketCap) },
-                        { label: 'P/E (TTM)', value: summary.trailingPE?.fmt || summary.trailingPE || 'N/A' },
-                        { label: 'Div Yield', value: summary.dividendYield?.fmt || (summary.dividendYield ? (summary.dividendYield * 100).toFixed(2) + '%' : 'N/A') },
-                        { label: 'Revenue', value: quote.financialData?.totalRevenue?.fmt || formatValue(quote.financialData?.totalRevenue) },
-                        { label: 'Profit Margin', value: quote.financialData?.profitMargins?.fmt || (quote.financialData?.profitMargins * 100).toFixed(2) + '%' },
-                        { label: 'Beta', value: summary.beta?.fmt || summary.beta || 'N/A' },
-                    ].map((metric, i) => (
-                        <div key={i} className="glass p-6 rounded-3xl">
-                            <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-2">{metric.label}</span>
-                            <span className="text-xl font-bold">{metric.value}</span>
-                        </div>
-                    ))}
-                </div>
-                */}
                 <div className="flex gap-2 p-1 bg-zinc-100 dark:bg-zinc-800/50 rounded-2xl w-fit mb-8">
                     {['income', 'balance', 'cashflow'].map((tab) => (
                         <button
@@ -238,43 +189,6 @@ const CompanyDetailPage = () => {
                 </div>
 
                 <div className="min-h-[600px]">
-                    {/*
-                    {activeTab === 'overview' && (
-                        <div className="grid lg:grid-cols-3 gap-8">
-                            <div className="lg:col-span-2 space-y-8">
-                                <div className="glass p-10 rounded-[2.5rem]">
-                                    <h3 className="text-2xl font-bold mb-6">Business Summary</h3>
-                                    <p className="text-zinc-500 leading-relaxed text-lg">
-                                        {quote.summaryProfile?.longBusinessSummary || 'No summary available.'}
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="space-y-8">
-                                <div className="glass p-8 rounded-[2rem]">
-                                    <h3 className="text-xl font-bold mb-6">Details</h3>
-                                    <div className="space-y-4 text-sm">
-                                        <div>
-                                            <span className="text-zinc-400 block mb-1">Headquarters</span>
-                                            <p className="font-bold">
-                                                {quote.summaryProfile?.city}, {quote.summaryProfile?.state}, {quote.summaryProfile?.country}
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <span className="text-zinc-400 block mb-1">Employees</span>
-                                            <p className="font-bold">{quote.summaryProfile?.fullTimeEmployees?.toLocaleString() || 'N/A'}</p>
-                                        </div>
-                                        <div>
-                                            <span className="text-zinc-400 block mb-1">Website</span>
-                                            <a href={quote.summaryProfile?.website} target="_blank" className="text-blue-500 hover:underline">
-                                                {quote.summaryProfile?.website}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                */}
                     {(activeTab === 'income' || activeTab === 'balance' || activeTab === 'cashflow') && (
                         <div className="glass p-8 md:p-12 rounded-[3rem] overflow-x-auto">
                             {!edgarData ? (
@@ -321,7 +235,28 @@ const CompanyDetailPage = () => {
                                                 {expandedConcept === item.concept && (
                                                     <tr>
                                                         <td colSpan={edgarData.periods.length + 1} className="py-2 px-8">
-                                                            <MetricTrend periods={edgarData.periods} values={item.values} />
+                                                            {(() => {
+                                                                const sortedPeriods = [...edgarData.periods].sort((a, b) => {
+                                                                    const getYear = (p: string) => {
+                                                                        const matches = p.match(/\d{4}/);
+                                                                        return matches ? parseInt(matches[0]) : 0;
+                                                                    };
+                                                                    const getOrder = (p: string) => {
+                                                                        if (p.includes('Q1')) return 1;
+                                                                        if (p.includes('Q2')) return 2;
+                                                                        if (p.includes('Q3')) return 3;
+                                                                        if (p.includes('Q4')) return 4;
+                                                                        if (p.includes('FY')) return 5;
+                                                                        return 0;
+                                                                    };
+                                                                    const yearA = getYear(a);
+                                                                    const yearB = getYear(b);
+                                                                    if (yearA !== yearB) return yearA - yearB;
+                                                                    return getOrder(a) - getOrder(b);
+                                                                });
+                                                                const trendValues = sortedPeriods.map(p => item.values[p]?.raw_value).filter(v => v !== undefined && v !== null);
+                                                                return <MetricTrend periods={sortedPeriods} values={trendValues} />;
+                                                            })()}
                                                         </td>
                                                     </tr>
                                                 )}
