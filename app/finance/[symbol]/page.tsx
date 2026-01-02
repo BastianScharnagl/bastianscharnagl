@@ -111,23 +111,23 @@ const MetricTrend = ({ periods, values }: { periods: string[], values: any }) =>
 const CompanyDetailPage = () => {
     const { symbol } = useParams();
     const router = useRouter();
-    const [yahooData, setYahooData] = useState<YahooData | null>(null);
+    //const [yahooData, setYahooData] = useState<YahooData | null>(null);
     const [edgarData, setEdgarData] = useState<EdgarData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [activeTab, setActiveTab] = useState<'overview' | 'income' | 'balance' | 'cashflow'>('overview');
+    const [activeTab, setActiveTab] = useState<'overview' | 'income' | 'balance' | 'cashflow'>('income');
     const [expandedConcept, setExpandedConcept] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const yResponse = await fetch(`/api/yahoo/${symbol}`);
-                const yJson = await yResponse.json();
+                /*const yResponse = await fetch(`/api/yahoo/${symbol}`);
+                const yJson = await yResponse.json();*/
                 const eResponse = await fetch(`/api/edgar/${symbol}`);
                 const eJson = await eResponse.json();
-                if (yJson.error) throw new Error(yJson.error);
-                setYahooData(yJson);
+                //if (yJson.error) throw new Error(yJson.error);
+                //setYahooData(yJson);
                 if (!eJson.error) setEdgarData(eJson);
             } catch (err: any) {
                 console.error('Fetch error:', err);
@@ -155,7 +155,7 @@ const CompanyDetailPage = () => {
         </div>
     );
 
-    if (error || !yahooData) return (
+    if (error) return (
         <div className="min-h-screen flex items-center justify-center p-4">
             <div className="glass p-12 rounded-[3rem] text-center max-w-md">
                 <h2 className="text-2xl font-bold mb-4 text-red-500">Analysis Failed</h2>
@@ -167,16 +167,19 @@ const CompanyDetailPage = () => {
         </div>
     );
 
+    /*
     const quote = yahooData.quote;
     const price = quote.price || {};
     const summary = quote.summaryDetail || {};
     const summaryProfile = quote.summaryProfile || {};
+    */
 
     return (
         <div className="min-h-screen bg-background pt-32 pb-24 px-4 relative">
             <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-500/10 to-transparent -z-10" />
 
             <main className="max-w-7xl mx-auto w-full">
+                {/*
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
                     <div>
                         <div className="flex items-center gap-3 mb-4">
@@ -200,7 +203,9 @@ const CompanyDetailPage = () => {
                         </div>
                     </div>
                 </div>
+                */}
 
+                {/*
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-12">
                     {[
                         { label: 'Market Cap', value: summary.marketCap?.fmt || formatValue(summary.marketCap) },
@@ -216,9 +221,9 @@ const CompanyDetailPage = () => {
                         </div>
                     ))}
                 </div>
-
+                */}
                 <div className="flex gap-2 p-1 bg-zinc-100 dark:bg-zinc-800/50 rounded-2xl w-fit mb-8">
-                    {['overview', 'income', 'balance', 'cashflow'].map((tab) => (
+                    {['income', 'balance', 'cashflow'].map((tab) => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab as any)}
@@ -233,6 +238,7 @@ const CompanyDetailPage = () => {
                 </div>
 
                 <div className="min-h-[600px]">
+                    {/*
                     {activeTab === 'overview' && (
                         <div className="grid lg:grid-cols-3 gap-8">
                             <div className="lg:col-span-2 space-y-8">
@@ -268,7 +274,7 @@ const CompanyDetailPage = () => {
                             </div>
                         </div>
                     )}
-
+                */}
                     {(activeTab === 'income' || activeTab === 'balance' || activeTab === 'cashflow') && (
                         <div className="glass p-8 md:p-12 rounded-[3rem] overflow-x-auto">
                             {!edgarData ? (
