@@ -5,7 +5,7 @@ import React from 'react';
 const experiences = [
     {
         title: "Research Assistant",
-        company: "Institute for Information Systems (iisys), Hof University",
+        company: "Institute for Information Systems (iisys), Hof University of Applied Sciences",
         period: "Feb 2022 - Present",
         description: "Working in the Intelligent and Learning Systems research group. Focused on software development and intelligent system integration."
     },

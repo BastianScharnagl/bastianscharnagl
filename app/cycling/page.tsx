@@ -176,10 +176,6 @@ const CyclingPage = () => {
                             <h1 className="text-4xl md:text-6xl font-bold mb-4">
                                 Life on <span className="text-orange-500">Two Wheels</span>
                             </h1>
-                            <p className="text-zinc-500 text-lg max-w-2xl leading-relaxed">
-                                When I&apos;m not developing intelligent systems, I&apos;m usually climbing mountains on my bike.
-                                Cycling is my laboratory for endurance and focus.
-                            </p>
                         </div>
                     </div>
                     <a

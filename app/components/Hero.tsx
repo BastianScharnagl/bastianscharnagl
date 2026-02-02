@@ -6,39 +6,37 @@ import Image from 'next/image';
 const Hero = () => {
     return (
         <section id="home" className="min-h-screen flex flex-col items-center justify-center pt-20 px-4">
-            <div className="relative w-40 h-40 mb-8 rounded-full overflow-hidden border-4 border-primary/20 animate-fade-in">
+            <div className="relative w-48 h-48 mb-10 rounded-3xl overflow-hidden glass border border-white/20 p-4 animate-fade-in shadow-2xl">
                 <Image
-                    src="/profile.jpg"
-                    alt="Bastian Scharnagl"
+                    src="/bs_logo_frei.png"
+                    alt="Bastian Scharnagl Logo"
                     fill
-                    className="object-cover"
+                    className="object-contain p-2"
                     priority
                 />
             </div>
-            <div className="text-center max-w-2xl">
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4">
-                    Bastian <span className="text-gradient">Scharnagl</span>
-                </h1>
-                <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 font-medium mb-8">
-                    Research Assistant in Intelligent & Learning Systems
+            <div className="text-center max-w-3xl">
+                <p className="text-xl md:text-3xl text-zinc-600 dark:text-zinc-300 font-medium mb-8 leading-tight">
+                    Engineering the Future of Technology
                 </p>
-                <p className="text-lg text-zinc-500 dark:text-zinc-500 mb-10 leading-relaxed">
-                    Bridging the gap between Mechanical Engineering and Artificial Intelligence.
-                    Currently focused on intelligent systems and software development at Hof University.
-                </p>
+
                 <div className="flex flex-wrap justify-center gap-4">
                     <Link
                         href="/projects"
-                        className="px-8 py-3 bg-primary text-white rounded-full font-semibold hover:opacity-90 transition-all hover:scale-105"
+                        className="px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-primary/25"
                     >
-                        View Projects
+                        Our Work
                     </Link>
                     <Link
                         href="/contact"
-                        className="px-8 py-3 border border-border-color rounded-full font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
+                        className="px-8 py-4 glass border border-border-color rounded-full font-bold text-lg hover:bg-zinc-100 dark:hover:bg-white/10 transition-all hover:scale-105 backdrop-blur-md"
                     >
-                        Get in Touch
+                        Contact Us
                     </Link>
+                </div>
+
+                <div className="mt-16 grid grid-cols-3 gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                    {/* Placeholders for partner logos or tech stack icons could go here to reinforce 'company' feel */}
                 </div>
             </div>
         </section>

@@ -68,7 +68,7 @@ const FinancePage = () => {
             <main className="max-w-4xl mx-auto w-full">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                        Financial <span className="text-gradient">Intelligence</span>
+                        Financial Intelligence
                     </h1>
                     <p className="text-zinc-500 text-lg leading-relaxed max-w-2xl mx-auto">
                         Analyze global markets, company fundamentals, and historical performance using live SEC and Yahoo Finance data.
@@ -140,35 +140,6 @@ const FinancePage = () => {
                         >
                             {ticker}
                         </button>
-                    ))}
-                </div>
-
-                {/* Features Grid */}
-                <div className="mt-24 grid md:grid-cols-3 gap-8">
-                    {[
-                        {
-                            title: 'Company Insights',
-                            desc: 'Deep dive into SEC filings, income statements, balance sheets, and cash flows.',
-                            icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                        },
-                        {
-                            title: 'Historical Trends',
-                            desc: 'Analyze 20-year performance trends and key financial metrics over time.',
-                            icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>
-                        },
-                        {
-                            title: 'Market Data',
-                            desc: 'Live quotes, technical indicators, and comprehensive market analysis tools.',
-                            icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                        }
-                    ].map((feature, i) => (
-                        <div key={i} className="glass p-8 rounded-[2.5rem] hover:translate-y-[-4px] transition-all">
-                            <div className="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 font-bold">
-                                {feature.icon}
-                            </div>
-                            <h3 className="text-xl font-bold mb-4">{feature.title}</h3>
-                            <p className="text-zinc-500 text-sm leading-relaxed">{feature.desc}</p>
-                        </div>
                     ))}
                 </div>
             </main>

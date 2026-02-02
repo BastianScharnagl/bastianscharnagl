@@ -58,12 +58,8 @@ const ProjectsPage = () => {
             <main className="flex-1 max-w-6xl mx-auto w-full">
                 <div className="mb-16">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                        GitHub <span className="text-gradient">Projects</span>
+                        GitHub Projects
                     </h1>
-                    <p className="text-zinc-500 text-lg max-w-2xl leading-relaxed">
-                        Live exploration of my open-source contributions, research experiments,
-                        and technical implementations directly from my GitHub profile.
-                    </p>
                 </div>
 
                 {loading ? (

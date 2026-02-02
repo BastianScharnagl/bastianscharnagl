@@ -11,12 +11,8 @@ const ContactPage = () => {
             <main className="max-w-6xl mx-auto w-full">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                        Get in <span className="text-gradient">Touch</span>
+                        Get in Touch
                     </h1>
-                    <p className="text-zinc-500 text-lg max-w-2xl mx-auto leading-relaxed">
-                        Have a project in mind, a research proposal, or just want to discuss the future of AI and engineering?
-                        I'm always open to new opportunities and collaborations.
-                    </p>
                 </div>
 
                 <div className="flex justify-center">
@@ -53,7 +49,7 @@ const ContactPage = () => {
                                             </div>
                                             <div>
                                                 <p className="text-xs text-zinc-500 font-medium uppercase mb-1">GitHub</p>
-                                                <p className="font-bold group-hover:text-primary transition-colors">@BastianScharnagl</p>
+                                                <p className="font-bold group-hover:text-primary transition-colors">BastianScharnagl</p>
                                             </div>
                                         </a>
                                     </div>

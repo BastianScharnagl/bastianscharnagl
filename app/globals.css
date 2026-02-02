@@ -3,7 +3,10 @@
 @theme {
   --font-sans: 'Inter', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --color-primary: #3b82f6;
-  --color-accent: #10b981;
+  --color-blue: #3b82f6;
+  --color-green: #10b981;
+  --color-red: #ef4444;
+  --color-yellow: #eab308;
 }
 
 :root {
@@ -40,8 +43,20 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(to right, #3b82f6, #10b981);
+  background: linear-gradient(to right, var(--color-blue), var(--color-green), var(--color-yellow), var(--color-red));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.hover-text-gradient {
+  transition: all 0.3s ease;
+}
+
+.hover-text-gradient:hover {
+  background: linear-gradient(to right, var(--color-blue), var(--color-green), var(--color-yellow), var(--color-red));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
