@@ -6,12 +6,12 @@ import Image from 'next/image';
 const Hero = () => {
     return (
         <section id="home" className="min-h-screen flex flex-col items-center justify-center pt-20 px-4">
-            <div className="relative w-48 h-48 mb-10 rounded-3xl overflow-hidden glass border border-white/20 p-4 animate-fade-in shadow-2xl">
+            <div className="relative w-48 h-48 mb-10 rounded-3xl overflow-hidden glass border border-white/20 animate-fade-in shadow-2xl">
                 <Image
-                    src="/bs_logo_frei.png"
+                    src="/bs_logo.png"
                     alt="Bastian Scharnagl Logo"
                     fill
-                    className="object-contain p-2"
+                    className="object-cover"
                     priority
                 />
             </div>
@@ -25,13 +25,13 @@ const Hero = () => {
                         href="/projects"
                         className="px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-primary/25"
                     >
-                        Our Work
+                        Work
                     </Link>
                     <Link
                         href="/contact"
                         className="px-8 py-4 glass border border-border-color rounded-full font-bold text-lg hover:bg-zinc-100 dark:hover:bg-white/10 transition-all hover:scale-105 backdrop-blur-md"
                     >
-                        Contact Us
+                        Contact
                     </Link>
                 </div>
 
