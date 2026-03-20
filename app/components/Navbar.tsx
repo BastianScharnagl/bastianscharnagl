@@ -12,18 +12,11 @@ interface NavLink {
 
 const links: NavLink[] = [
     { href: '/', label: 'Home', colorClass: 'hover:text-blue' },
-    { href: '/about', label: 'About', colorClass: 'hover:text-blue' },
-    { href: '/projects', label: 'Projects', colorClass: 'hover:text-blue' },
-    {
-        label: 'Hobbies',
-        colorClass: 'hover:text-primary',
-        children: [
-            { href: '/cycling', label: 'Cycling', colorClass: 'hover:text-yellow' },
-            { href: '/reading', label: 'Reading', colorClass: 'hover:text-green' },
-            { href: '/finance', label: 'Finance', colorClass: 'hover:text-red' },
-        ]
-    },
-    { href: '/contact', label: 'Contact', colorClass: 'hover:text-blue' },
+    { href: '/work', label: 'Work', colorClass: 'hover:text-blue' },
+    { href: '/build', label: 'Build', colorClass: 'hover:text-green' },
+    { href: '/cycle', label: 'Cycle', colorClass: 'hover:text-red' },
+    { href: '/read', label: 'Read', colorClass: 'hover:text-yellow' },
+    { href: '/invest', label: 'Invest', colorClass: 'hover:text-blue' },
 ];
 
 const Navbar = () => {
