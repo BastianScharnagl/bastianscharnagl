@@ -17,12 +17,11 @@ const Hero = () => {
             </div>
             <div className="text-center max-w-3xl">
                 <p className="text-xl md:text-3xl text-zinc-600 dark:text-zinc-300 font-medium mb-8 leading-tight">
-                    Bastian Scharnagl
+                    Solutions
                 </p>
-
-                <div className="mt-16 grid grid-cols-3 gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                    {/* Placeholders for partner logos or tech stack icons could go here to reinforce 'company' feel */}
-                </div>
+                <p className="text-base md:text-lg text-zinc-700 dark:text-zinc-400 mb-12 leading-relaxed">
+                    "I offer comprehensive solutions in embedded software development, traditional software engineering, computer vision, machine learning, and generative AI. Leveraging my technical expertise, I support companies in developing innovative systems and intelligent applications."
+                </p>
             </div>
         </section>
     );

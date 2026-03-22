@@ -13,7 +13,7 @@ const TechStack = () => {
     return (
         <section className="py-24 px-4 bg-background">
             <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold mb-12 text-center">Tech Stack</h2>
+                <h2 className="text-3xl font-bold text-zinc-600 dark:text-zinc-300 mb-12 text-center">Tech Stack</h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {technologies.map((tech, index) => (
                         <div key={index} className="glass p-6 rounded-2xl hover:border-primary/30 transition-all">
