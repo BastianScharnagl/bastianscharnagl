@@ -32,7 +32,7 @@ const WorkingPage = () => {
                                 rel="noopener noreferrer"
                                 className="px-8 py-3 bg-blue-500 text-white rounded-full font-bold hover:scale-105 transition-all shadow-xl shadow-blue-500/20 flex items-center justify-center gap-2 mx-auto md:mx-0"
                             >
-                                Follow on LinkedIn
+                                Connect on LinkedIn
                             </a>
                         </div>
                         <Experience />  

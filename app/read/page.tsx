@@ -74,7 +74,7 @@ const ReadingPage = () => {
                             rel="noopener noreferrer"
                             className="px-8 py-3 bg-yellow-500 text-white rounded-full font-bold hover:scale-105 transition-all shadow-xl shadow-yellow-500/20 flex items-center justify-center gap-2 mx-auto md:mx-0"
                         >
-                            Follow on Goodreads
+                            Connect on Goodreads
                         </a>
                     </div>
                     <div className="text-center mb-16">
