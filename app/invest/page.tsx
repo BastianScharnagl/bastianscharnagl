@@ -56,7 +56,7 @@ const FinancePage = () => {
     }, [query]);
     */
     const handleSelect = (symbol: string) => {
-        router.push(`/finance/${symbol}`);
+        router.push(`/invest/${symbol}`);
         setShowDropdown(false);
         setQuery('');
     };
