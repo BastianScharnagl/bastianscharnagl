@@ -170,7 +170,7 @@ const CyclingPage = () => {
                                 <span className="px-3 py-1 bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-bold uppercase tracking-widest rounded-full">Athlete Profile</span>
                             </div>
                             <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                                Life exploring <span className="text-red-500">Life</span>
+                                Life living <span className="text-red-500">Life</span>
                             </h1>
                         </div>
                     </div>

@@ -64,7 +64,7 @@ const ReadingPage = () => {
                                 <span className="px-3 py-1 bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 text-xs font-bold uppercase tracking-widest rounded-full">Reader Profile</span>
                             </div>
                                 <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                                    Life sharping my <span className="text-yellow-500">Mind</span>
+                                    Life exploring <span className="text-yellow-500">Knowledge</span>
                                 </h1>
                             </div>
                         </div>
