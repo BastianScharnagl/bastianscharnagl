@@ -16,6 +16,13 @@ interface StravaActivity {
     map: {
         summary_polyline: string;
     };
+    photos?: {
+        primary: {
+            urls: {
+                '600': string;
+            };
+        };
+    };
 }
 
 interface StravaProfile {
@@ -131,6 +138,7 @@ const CyclingPage = () => {
                     throw new Error(data.error || 'Failed to fetch Strava data');
                 }
                 const data = await response.json();
+                console.log('Strava Data:', data);
                 setActivities(data.activities || []);
                 setProfile(data.profile || null);
                 setStats(data.stats || null);
@@ -291,7 +299,13 @@ const CyclingPage = () => {
                 <div className="space-y-4">
                     {!loading && !error && activities.filter(a => a.type === 'Ride').slice(0, 10).map((activity) => (
                         <div key={activity.id} className="glass group p-6 rounded-[2.5rem] hover:border-red-500/30 transition-all flex flex-col md:flex-row md:items-center gap-6">
-                            <PolylineMap encodedPolyline={activity.map?.summary_polyline} />
+                            {!activity.photos?.primary ? 
+                                (
+                                    <PolylineMap encodedPolyline={activity.map?.summary_polyline} />
+                                ) : (
+                                    <img src={activity.photos?.primary.urls[600]} alt={activity.name} className="w-24 h-24 object-cover rounded-2xl" />
+                                )
+                            }
 
                             <div className="flex-1">
                                 <div className="flex justify-between items-start mb-2">

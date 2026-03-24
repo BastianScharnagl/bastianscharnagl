@@ -48,6 +48,16 @@ export async function GET() {
             headers: activityHeaders,
         });
         const activities = await activitiesResponse.json();
+        const filteredActivities = activities.filter((a: { type: any }) => a.type === 'Ride').slice(0, 10);
+
+        for (const activity of filteredActivities) {
+            const detailedResponse = await fetch(`https://www.strava.com/api/v3/activities/${activity.id}`, {
+                method: "GET",
+                headers: activityHeaders,
+            });
+            const detailedActivity = await detailedResponse.json();
+            Object.assign(activity, detailedActivity);
+        }
 
         // 3. Fetch Profile
         const profileResponse = await fetch(`https://www.strava.com/api/v3/athlete`, {
