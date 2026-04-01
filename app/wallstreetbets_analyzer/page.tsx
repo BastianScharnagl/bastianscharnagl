@@ -25,7 +25,6 @@ export default function WallStreetBetsAnalyzer() {
                 const response = await fetch('/api/reddit-analyzer?limit=100');
                 if (!response.ok) throw new Error('Failed to fetch data');
                 const result = await response.json();
-                console.log('Fetched data:', result);
                 setData(
                     {
                         subreddit: "wallstreetbets",
