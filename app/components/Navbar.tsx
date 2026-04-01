@@ -17,6 +17,7 @@ const links: NavLink[] = [
     { href: '/cycle', label: 'Cycle', colorClass: 'hover:text-red' },
     { href: '/read', label: 'Read', colorClass: 'hover:text-yellow' },
     { href: '/invest', label: 'Invest', colorClass: 'hover:text-blue' },
+    { href: '/segmentation', label: 'Segmentation', colorClass: 'hover:text-purple' }
 ];
 
 const Navbar = () => {

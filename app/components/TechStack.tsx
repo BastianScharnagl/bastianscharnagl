@@ -5,6 +5,7 @@ import React from 'react';
 const TechStack = () => {
     const technologies = [
         { category: "Core", items: ["C", "C++", "C#", "Python", "TypeScript"] },
+        { category: "Protocols", items: ["I2C", "RS485", "CAN", "MQTT"] },
         { category: "Web Frameworks", items: ["Next.js", "FastAPI"] },
         { category: "Data & AI", items: ["OpenCV", "PyTorch", "Pandas", "Scikit-Learn"] },
         { category: "Infrastructure", items: ["Linux", "Docker", "Git"] },

@@ -1,4 +1,5 @@
 import Experience from "@/app/components/Experience";
+import TechStack from "../components/TechStack";
 
 const WorkingPage = () => {
 
@@ -36,7 +37,6 @@ const WorkingPage = () => {
                             </a>
                         </div>
                         <Experience />  
-
                         
                     </main>
                 </div>
