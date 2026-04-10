@@ -70,6 +70,14 @@ const CompanyDetailPage = () => {
 
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center">
+            <div className="fixed inset-0 -z-10">
+                <img 
+                    src="/backgrounds/bg_service.png" 
+                    alt="Background" 
+                    className="w-full h-full object-cover opacity-30"
+                />
+                <div className="absolute inset-0 bg-background/80" />
+            </div>
             <div className="flex flex-col items-center gap-4">
                 <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
                 <p className="text-zinc-500 animate-pulse font-medium">Analyzing {symbol}...</p>
@@ -79,6 +87,14 @@ const CompanyDetailPage = () => {
 
     if (error) return (
         <div className="min-h-screen flex items-center justify-center p-4">
+            <div className="fixed inset-0 -z-10">
+                <img 
+                    src="/backgrounds/bg_service.png" 
+                    alt="Background" 
+                    className="w-full h-full object-cover opacity-30"
+                />
+                <div className="absolute inset-0 bg-background/80" />
+            </div>
             <div className="glass p-12 rounded-[3rem] text-center max-w-md">
                 <h2 className="text-2xl font-bold mb-4 text-red-500">Analysis Failed</h2>
                 <p className="text-zinc-500 mb-8">{error || 'Could not find data for this symbol.'}</p>
