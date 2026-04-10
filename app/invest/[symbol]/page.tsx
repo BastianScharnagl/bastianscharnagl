@@ -91,6 +91,14 @@ const CompanyDetailPage = () => {
 
     return (
         <div className="min-h-screen bg-background pt-32 pb-24 px-4 relative">
+            <div className="fixed inset-0 -z-10">
+                <img 
+                    src="/backgrounds/bg_service.png" 
+                    alt="Background" 
+                    className="w-full h-full object-cover opacity-30"
+                />
+                <div className="absolute inset-0 bg-background/80" />
+            </div>
             <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-blue-500/10 to-transparent -z-10" />
 
             <main className="max-w-7xl mx-auto w-full">
