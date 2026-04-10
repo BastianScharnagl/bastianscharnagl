@@ -15,14 +15,6 @@ const Hero = () => {
                     priority
                 />
             </div>
-            <div className="text-center max-w-3xl">
-                <p className="text-xl md:text-3xl text-zinc-600 dark:text-zinc-300 font-medium mb-8 leading-tight">
-                    Solutions
-                </p>
-                <p className="text-base md:text-lg text-zinc-700 dark:text-zinc-400 mb-12 leading-relaxed">
-                    "I offer comprehensive solutions in embedded software development, traditional software engineering, computer vision, machine learning, and generative AI. Leveraging my technical expertise, I support companies in developing innovative systems and intelligent applications."
-                </p>
-            </div>
         </section>
     );
 };

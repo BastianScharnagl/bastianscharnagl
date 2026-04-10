@@ -55,6 +55,14 @@ const ProjectsPage = () => {
 
     return (
         <div className="min-h-screen bg-background flex flex-col pt-32 pb-24 px-4 overflow-hidden relative">
+            <div className="fixed inset-0 -z-10">
+                <img 
+                    src="/backgrounds/bg_build.png" 
+                    alt="Background" 
+                    className="w-full h-full object-cover opacity-30"
+                />
+                <div className="absolute inset-0 bg-background/80" />
+            </div>
             <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-green-500/5 to-transparent -z-10" />
 
             <main className="flex-1 max-w-6xl mx-auto w-full">
