@@ -35,7 +35,7 @@ const socialAccounts = [
     accent: 'bg-[#FC4C02] text-white',
   },
   {
-    profilePicture: '/profile.jpg',
+    profilePicture: '/profile_substack.jpg',
     activity: 'Thoughts',
     platform: 'Substack',
     url: 'https://bastianscharnagl.substack.com/',
