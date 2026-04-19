@@ -3,7 +3,7 @@ import React from 'react';
 
 const socialAccounts = [
   {
-    profilePicture: '/profile.jpg',
+    profilePicture: '/profile_research.jpg',
     activity: 'Research',
     platform: 'ORCID',
     url: 'https://orcid.org/0009-0003-4415-1660',
