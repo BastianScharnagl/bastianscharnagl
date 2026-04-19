@@ -70,14 +70,6 @@ export default function WallStreetBetsAnalyzer() {
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-16">
-            <div className="fixed inset-0 -z-10">
-                <img 
-                    src="/backgrounds/bg_service.png" 
-                    alt="Background" 
-                    className="w-full h-full object-cover opacity-30"
-                />
-            <div className="absolute inset-0 bg-background/80" />
-            </div>
             <h1 className="text-4xl font-bold mb-2">r/wallstreetbets</h1>
             <p className="text-gray-600 mb-8">
                 Analyzed {data.posts_analyzed} posts for stock ticker mentions. Top mentioned keywords matching tickers are displayed below.
