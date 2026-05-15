@@ -12,7 +12,7 @@ interface NavLink {
 
 const links: NavLink[] = [
     { href: '/', label: 'Home', colorClass: 'hover:text-blue' },
-    { href: 'chat.bastianscharnagl.de', label: 'Chat', colorClass: 'hover:text-blue' },
+    { href: 'https://chat.bastianscharnagl.de', label: 'Chat', colorClass: 'hover:text-blue' },
     { href: '/connect', label: 'Connect', colorClass: 'hover:text-blue' },
     { href: '/inspiration', label: 'Inspiration', colorClass: 'hover:text-blue' },
     { href: '/services', label: 'Services', colorClass: 'hover:text-blue', children: [
