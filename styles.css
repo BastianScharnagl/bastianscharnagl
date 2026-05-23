@@ -116,10 +116,9 @@ p, h1, h2, h3 {
 }
 
 .link-image {
-    width: 120px;
     height: 60px;
     margin-right: 0.75rem;
-    border-radius: 4px;
+    border-radius: 5px;
     object-fit: contain;
 }
 
