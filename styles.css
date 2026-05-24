@@ -81,32 +81,6 @@ p, h1, h2, h3 {
     padding-left: 0;
 }
 
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 1rem;
-    }
-
-    .nav-container {
-        padding: 0.25rem 0;
-    }
-
-    .nav-item:first-child {
-        margin-right: 0;
-        width: 100%;
-    }
-
-    .nav-item {
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-
-    .nav-item a {
-        display: block;
-        padding: 0.5rem 0.5rem;
-        white-space: nowrap;
-    }
-}
-
 /* Section Container */
 .links-section {
     max-width: 600px;
