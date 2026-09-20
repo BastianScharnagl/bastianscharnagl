@@ -1,6 +1,6 @@
 # Hi, I'm Bastian Scharnagl
 
-I am a Research Scientist at Hof University of Applied Sciences and a Ph.D. Candidate in Computer Science at the University of Bayreuth. My work focuses on deep learning architectures, specifically spatial consistency, generative modeling, and computer vision.
+I am a Research Scientist at Hof University of Applied Sciences. My work focuses on deep learning architectures, specifically spatial consistency, generative modeling, and computer vision.
 
 ---
 
