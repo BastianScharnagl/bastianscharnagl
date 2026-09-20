@@ -15,4 +15,4 @@ I am a Research Scientist at Hof University of Applied Sciences. My work focuses
 * **Web & Databases:** Next.js, Prisma, MySQL
 
 ### 📬 Connect with Me
-* **Academic/Professional:** [ORCID](https://orcid.org/0009-0003-4415-1660) / [LinkedIn](https://linkedin.com/in/bastianscharnagl)
+* **Academic/Professional:** [ORCID](https://orcid.org/0009-0003-4415-1660) / [LinkedIn](https://linkedin.com/in/bastianscharnagl) / [Freelance Consulting](https://consulting.bastianscharnagl.de)
